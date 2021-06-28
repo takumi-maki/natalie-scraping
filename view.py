@@ -2,8 +2,11 @@
 import dash
 import dash_html_components as html
 import pandas as pd
+import datetime
 
-df = pd.read_csv('https://gist.githubusercontent.com/chriddyp/c78bf172206ce24f77d6363a2d754b59/raw/c353e8ef842413cae56ae3920b8fd78468aa4cb2/usa-agricultural-exports-2011.csv')
+
+df = pd.read_csv('data.csv')
+today = datetime.date.today().strftime('%-m月%-d日')
 
 def generate_table(dataframe, max_rows=30):
     return html.Table([
@@ -21,8 +24,11 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
+server = app.server 
+
 app.layout = html.Div(children=[
     html.H4(children='Owarai natalie'),
+    html.P(children=today),
     generate_table(df)
 ])
 
